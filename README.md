@@ -1,55 +1,47 @@
-# Environmental Air Quality Pipeline
+# Air Quality Analytics Pipeline
 
-Built an automated data pipeline that ingests, transforms,
-and visualizes real-time air quality data across Indian cities
-— end to end, from raw API to dashboard.
+I built this because I wanted to understand what an actual 
+data pipeline looks like end to end — not just cleaning a 
+CSV file, but the whole thing: pulling live data from an API, 
+processing it, and getting it into a dashboard someone could 
+actually use.
 
-## What I Built
+The project tracks air quality across 5 Indian cities in 
+real time, classifies pollution levels by risk category, 
+and displays everything in an interactive dashboard.
 
-Engineered a multi-stage pipeline: live API ingestion →
-data cleaning → business logic (AQI classification) →
-visual dashboard. Mirrors real-world BI workflows.
+## Live App
+👉 [Open Dashboard](https://environmental-data-pipeline-2dnkog5rys5suebnkpqyzv.streamlit.app)
 
-## Tech Stack
+## How it works
 
-Python · Pandas · Matplotlib · REST API · CSV
+**1. Data Collection**
+Pulls live AQI readings from a public REST API for 
+cities including Delhi, Mumbai, Chennai, Kolkata, 
+and Hyderabad.
 
-## Key Skills Demonstrated
+**2. Processing**
+Cleans the raw data with Pandas — handles missing 
+values, standardizes formats, and classifies each 
+reading into risk buckets (Good / Moderate / 
+Unhealthy / Hazardous).
 
-* ETL pipeline development (Extract, Transform, Load)
-* Data wrangling and cleaning with Pandas
-* KPI definition and threshold-based classification
-* Dashboard and data visualization
-* Modular, production-style code structure
+**3. Dashboard**
+A Streamlit app that shows current AQI levels, 
+city comparisons, and trend lines using Plotly charts.
 
-## Business Impact
+## Tech used
+Python · Pandas · Streamlit · Plotly · REST API
 
-Automates manual data collection across 5 cities,
-classifies pollution risk levels, and delivers
-visual insights instantly — reducing reporting time from
-hours to seconds.
+## Run it yourself
+git clone https://github.com/saithrishadaggupati/environmental-data-pipeline
+pip install -r requirements.txt
+streamlit run dashboard/app.py
 
-## How to Run
-
-1\. Clone the repo:
-
-&#x20;  git clone https://github.com/saithrishadaggupati/environmental-data-pipeline
-
-
-
-2\. Install dependencies:
-
-&#x20;  pip install -r requirements.txt
-
-
-
-3\. Run the dashboard:
-
-&#x20;  python -m streamlit run dashboard/app.py
-
-
-
-4\. View live demo:
-
-&#x20;  https://environmental-data-pipeline-2dnkog5rys5suebnkpqyzv.streamlit.app
-
+## Project structure
+environmental-data-pipeline/
+├── dashboard/      # Streamlit app
+├── data/           # Raw and processed data
+├── src/            # Pipeline scripts
+├── .env.example    # Environment variable template
+└── requirements.txt
