@@ -1,0 +1,6 @@
+city,aqi_index,pm2_5,pm10,co,timestamp,air_quality_label
+Visakhapatnam,78,55.4,73.1,427.0,2026-05-27 19:28:26,Moderate
+Bangalore,56,29.0,35.2,1053.0,2026-05-27 19:28:27,Moderate
+Gujarat,60,23.2,73.8,181.0,2026-05-27 19:28:27,Moderate
+Mumbai,21,11.8,22.1,201.0,2026-05-27 19:28:28,Good
+Pune,55,14.1,17.3,207.0,2026-05-27 19:28:29,Moderate
