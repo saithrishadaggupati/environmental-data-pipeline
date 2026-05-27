@@ -1,6 +1,8 @@
 # Air Quality Analytics Pipeline
 
-I built this because I wanted to understand what an actual 
+I built this<img width="1814" height="784" alt="image" src="https://github.com/user-attachments/assets/166e2e5c-d509-4863-93e7-94b8ee8774f4" />
+
+because I wanted to understand what an actual 
 data pipeline looks like end to end — not just cleaning a 
 CSV file, but the whole thing: pulling live data from an API, 
 processing it, and getting it into a dashboard someone could 
