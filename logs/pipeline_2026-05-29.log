@@ -3,3 +3,7 @@
 2026-05-29 13:49:15,028 | INFO | Excel report exported to data/exports/AQI_India_Report.xlsx
 2026-05-29 13:52:45,925 | INFO | Starting statistical analysis on AQI dataset
 2026-05-29 13:52:45,968 | INFO | Statistical analysis complete
+2026-05-29 14:26:26,465 | INFO | Loading data for Dash dashboard
+2026-05-29 14:26:27,509 | INFO | Dash is running on http://127.0.0.1:8050/
+
+2026-05-29 14:26:29,091 | INFO | Loading data for Dash dashboard
