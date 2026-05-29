@@ -7,3 +7,251 @@
 2026-05-29 14:26:27,509 | INFO | Dash is running on http://127.0.0.1:8050/
 
 2026-05-29 14:26:29,091 | INFO | Loading data for Dash dashboard
+2026-05-29 17:26:21,507 | INFO | Loading data for Dash dashboard
+2026-05-29 17:26:22,068 | INFO | Dash is running on http://127.0.0.1:8050/
+
+2026-05-29 17:26:23,501 | INFO | Loading data for Dash dashboard
+2026-05-29 17:29:32,692 | INFO | Loading data for Dash dashboard
+2026-05-29 17:29:33,318 | INFO | Dash is running on http://127.0.0.1:8050/
+
+2026-05-29 17:29:35,020 | INFO | Loading data for Dash dashboard
+2026-05-29 17:41:29,874 | INFO | Starting AQI data pipeline for 25 cities
+2026-05-29 17:41:30,764 | INFO | Fetched Visakhapatnam — AQI: 78
+2026-05-29 17:41:31,664 | INFO | Fetched Bangalore — AQI: 32
+2026-05-29 17:41:32,498 | INFO | Fetched Mumbai — AQI: 37
+2026-05-29 17:41:33,369 | INFO | Fetched Pune — AQI: 43
+2026-05-29 17:41:34,209 | INFO | Fetched Delhi — AQI: 277
+2026-05-29 17:41:35,045 | INFO | Fetched Chennai — AQI: 69
+2026-05-29 17:41:35,899 | INFO | Fetched Kolkata — AQI: 67
+2026-05-29 17:41:36,877 | INFO | Fetched Hyderabad — AQI: 61
+2026-05-29 17:41:37,756 | INFO | Fetched Ahmedabad — AQI: 53
+2026-05-29 17:41:38,585 | INFO | Fetched Jaipur — AQI: 110
+2026-05-29 17:41:39,377 | INFO | Fetched Lucknow — AQI: 67
+2026-05-29 17:41:40,211 | INFO | Fetched Bhopal — AQI: 43
+2026-05-29 17:41:41,047 | INFO | Fetched Nagpur — AQI: 46
+2026-05-29 17:41:42,020 | INFO | Fetched Patna — AQI: 67
+2026-05-29 17:41:42,818 | INFO | Fetched Indore — AQI: 49
+2026-05-29 17:41:43,651 | INFO | Fetched Surat — AQI: 62
+2026-05-29 17:41:44,516 | INFO | Fetched Coimbatore — AQI: 29
+2026-05-29 17:41:45,413 | INFO | Fetched Kochi — AQI: 22
+2026-05-29 17:41:46,307 | INFO | Fetched Chandigarh — AQI: 73
+2026-05-29 17:41:47,172 | INFO | Fetched Varanasi — AQI: 73
+2026-05-29 17:41:48,015 | INFO | Fetched Agra — AQI: 408
+2026-05-29 17:41:48,821 | INFO | Fetched Ranchi — AQI: 65
+2026-05-29 17:41:49,647 | INFO | Fetched Mysore — AQI: 41
+2026-05-29 17:41:50,500 | INFO | Fetched Guwahati — AQI: 74
+2026-05-29 17:41:51,337 | INFO | Fetched Bhubaneswar — AQI: 67
+2026-05-29 17:41:51,351 | INFO | CSV saved to data/raw/aqi_data.csv
+2026-05-29 17:41:51,708 | INFO | Data saved to PostgreSQL database
+2026-05-29 17:41:51,708 | INFO | Pipeline completed successfully. 25/25 cities fetched.
+2026-05-29 17:42:27,162 | INFO | Loading data for Dash dashboard
+2026-05-29 17:42:27,776 | INFO | Dash is running on http://127.0.0.1:8050/
+
+2026-05-29 17:42:29,328 | INFO | Loading data for Dash dashboard
+2026-05-29 17:46:14,085 | INFO | Starting data transformation — reading raw AQI data
+2026-05-29 17:46:14,103 | INFO | Loaded 25 rows from raw CSV
+2026-05-29 17:46:14,105 | INFO | No missing values found — data is clean
+2026-05-29 17:46:14,107 | INFO | Air quality labels assigned successfully
+2026-05-29 17:46:14,111 | INFO | Cleaned data saved — 25 rows written to data/processed/clean_aqi.csv
+2026-05-29 17:47:10,389 | INFO | Checking if aqi_readings table exists in PostgreSQL
+2026-05-29 17:47:10,494 | INFO | Table aqi_readings is ready
+2026-05-29 17:47:10,494 | INFO | Loading data from data/processed/clean_aqi.csv into PostgreSQL
+2026-05-29 17:47:10,504 | INFO | Found 25 rows to upsert
+2026-05-29 17:47:38,948 | INFO | Checking if aqi_readings table exists in PostgreSQL
+2026-05-29 17:47:39,052 | INFO | Table aqi_readings is ready
+2026-05-29 17:47:39,052 | INFO | Loading data from data/processed/clean_aqi.csv into PostgreSQL
+2026-05-29 17:47:39,059 | INFO | Found 25 rows to upsert
+2026-05-29 17:48:34,768 | INFO | Checking if aqi_readings table exists in PostgreSQL
+2026-05-29 17:48:34,906 | INFO | Table aqi_readings is ready
+2026-05-29 17:48:34,906 | INFO | Loading data from data/processed/clean_aqi.csv into PostgreSQL
+2026-05-29 17:48:34,913 | INFO | Found 25 rows to upsert
+2026-05-29 17:48:35,094 | INFO | Load complete — 25 rows upserted
+2026-05-29 17:50:59,970 | INFO | Starting AQI data pipeline for 25 cities
+2026-05-29 17:51:00,850 | INFO | Fetched Visakhapatnam — AQI: 78
+2026-05-29 17:51:01,747 | INFO | Fetched Bangalore — AQI: 32
+2026-05-29 17:51:02,637 | INFO | Fetched Mumbai — AQI: 37
+2026-05-29 17:51:03,462 | INFO | Fetched Pune — AQI: 43
+2026-05-29 17:51:04,412 | INFO | Fetched Delhi — AQI: 277
+2026-05-29 17:51:05,325 | INFO | Fetched Chennai — AQI: 69
+2026-05-29 17:51:06,166 | INFO | Fetched Kolkata — AQI: 67
+2026-05-29 17:51:06,979 | INFO | Fetched Hyderabad — AQI: 61
+2026-05-29 17:51:07,785 | INFO | Fetched Ahmedabad — AQI: 53
+2026-05-29 17:51:08,613 | INFO | Fetched Jaipur — AQI: 110
+2026-05-29 17:51:09,502 | INFO | Fetched Lucknow — AQI: 67
+2026-05-29 17:51:10,316 | INFO | Fetched Bhopal — AQI: 43
+2026-05-29 17:51:11,160 | INFO | Fetched Nagpur — AQI: 46
+2026-05-29 17:51:12,001 | INFO | Fetched Patna — AQI: 67
+2026-05-29 17:51:12,878 | INFO | Fetched Indore — AQI: 49
+2026-05-29 17:51:13,853 | INFO | Fetched Surat — AQI: 62
+2026-05-29 17:51:14,732 | INFO | Fetched Coimbatore — AQI: 29
+2026-05-29 17:51:15,554 | INFO | Fetched Kochi — AQI: 22
+2026-05-29 17:51:16,400 | INFO | Fetched Chandigarh — AQI: 73
+2026-05-29 17:51:17,230 | INFO | Fetched Varanasi — AQI: 73
+2026-05-29 17:51:18,096 | INFO | Fetched Agra — AQI: 408
+2026-05-29 17:51:18,987 | INFO | Fetched Ranchi — AQI: 65
+2026-05-29 17:51:19,870 | INFO | Fetched Mysore — AQI: 41
+2026-05-29 17:51:20,712 | INFO | Fetched Guwahati — AQI: 74
+2026-05-29 17:51:21,524 | INFO | Fetched Bhubaneswar — AQI: 67
+2026-05-29 17:51:21,535 | INFO | CSV saved to data/raw/aqi_data.csv
+2026-05-29 17:51:21,746 | INFO | Data saved to PostgreSQL database
+2026-05-29 17:51:21,746 | INFO | Pipeline completed successfully. 25/25 cities fetched.
+2026-05-29 17:51:22,741 | INFO | Starting data transformation — reading raw AQI data
+2026-05-29 17:51:22,758 | INFO | Loaded 25 rows from raw CSV
+2026-05-29 17:51:22,760 | INFO | No missing values found — data is clean
+2026-05-29 17:51:22,760 | INFO | Air quality labels assigned successfully
+2026-05-29 17:51:22,765 | INFO | Cleaned data saved — 25 rows written to data/processed/clean_aqi.csv
+2026-05-29 17:51:23,829 | INFO | Checking if aqi_readings table exists in PostgreSQL
+2026-05-29 17:51:23,940 | INFO | Table aqi_readings is ready
+2026-05-29 17:51:23,941 | INFO | Loading data from data/processed/clean_aqi.csv into PostgreSQL
+2026-05-29 17:51:23,950 | INFO | Found 25 rows to upsert
+2026-05-29 17:52:41,389 | INFO | Starting AQI data pipeline for 25 cities
+2026-05-29 17:52:42,198 | INFO | Fetched Visakhapatnam — AQI: 78
+2026-05-29 17:52:43,044 | INFO | Fetched Bangalore — AQI: 32
+2026-05-29 17:52:44,016 | INFO | Fetched Mumbai — AQI: 37
+2026-05-29 17:52:44,926 | INFO | Fetched Pune — AQI: 43
+2026-05-29 17:52:45,759 | INFO | Fetched Delhi — AQI: 277
+2026-05-29 17:52:46,595 | INFO | Fetched Chennai — AQI: 69
+2026-05-29 17:52:47,444 | INFO | Fetched Kolkata — AQI: 67
+2026-05-29 17:52:48,299 | INFO | Fetched Hyderabad — AQI: 61
+2026-05-29 17:52:49,124 | INFO | Fetched Ahmedabad — AQI: 53
+2026-05-29 17:52:49,980 | INFO | Fetched Jaipur — AQI: 110
+2026-05-29 17:52:50,841 | INFO | Fetched Lucknow — AQI: 67
+2026-05-29 17:52:51,676 | INFO | Fetched Bhopal — AQI: 43
+2026-05-29 17:52:52,572 | INFO | Fetched Nagpur — AQI: 46
+2026-05-29 17:52:53,512 | INFO | Fetched Patna — AQI: 67
+2026-05-29 17:52:54,396 | INFO | Fetched Indore — AQI: 49
+2026-05-29 17:52:55,246 | INFO | Fetched Surat — AQI: 62
+2026-05-29 17:52:56,084 | INFO | Fetched Coimbatore — AQI: 29
+2026-05-29 17:52:56,960 | INFO | Fetched Kochi — AQI: 22
+2026-05-29 17:52:57,820 | INFO | Fetched Chandigarh — AQI: 73
+2026-05-29 17:52:58,666 | INFO | Fetched Varanasi — AQI: 73
+2026-05-29 17:52:59,514 | INFO | Fetched Agra — AQI: 408
+2026-05-29 17:53:00,356 | INFO | Fetched Ranchi — AQI: 65
+2026-05-29 17:53:01,201 | INFO | Fetched Mysore — AQI: 41
+2026-05-29 17:53:02,119 | INFO | Fetched Guwahati — AQI: 74
+2026-05-29 17:53:02,959 | INFO | Fetched Bhubaneswar — AQI: 67
+2026-05-29 17:53:02,970 | INFO | CSV saved to data/raw/aqi_data.csv
+2026-05-29 17:53:03,151 | INFO | Data saved to PostgreSQL database
+2026-05-29 17:53:03,151 | INFO | Pipeline completed successfully. 25/25 cities fetched.
+2026-05-29 17:53:04,115 | INFO | Starting data transformation — reading raw AQI data
+2026-05-29 17:53:04,131 | INFO | Loaded 25 rows from raw CSV
+2026-05-29 17:53:04,134 | INFO | No missing values found — data is clean
+2026-05-29 17:53:04,134 | INFO | Air quality labels assigned successfully
+2026-05-29 17:53:04,138 | INFO | Cleaned data saved — 25 rows written to data/processed/clean_aqi.csv
+2026-05-29 17:55:32,066 | INFO | Starting Excel export
+2026-05-29 17:55:32,189 | INFO | Fetched 25 rows from PostgreSQL
+2026-05-29 17:55:32,507 | INFO | Excel report saved to data/exports/AQI_India_Report.xlsx
+2026-05-29 18:00:19,831 | INFO | Starting AQI data pipeline for 25 cities
+2026-05-29 18:00:20,746 | INFO | Fetched Visakhapatnam — AQI: 78
+2026-05-29 18:00:21,624 | INFO | Fetched Bangalore — AQI: 32
+2026-05-29 18:00:22,505 | INFO | Fetched Mumbai — AQI: 37
+2026-05-29 18:00:23,420 | INFO | Fetched Pune — AQI: 43
+2026-05-29 18:00:24,274 | INFO | Fetched Delhi — AQI: 277
+2026-05-29 18:00:25,103 | INFO | Fetched Chennai — AQI: 69
+2026-05-29 18:00:25,967 | INFO | Fetched Kolkata — AQI: 67
+2026-05-29 18:00:26,823 | INFO | Fetched Hyderabad — AQI: 61
+2026-05-29 18:00:27,662 | INFO | Fetched Ahmedabad — AQI: 53
+2026-05-29 18:00:28,472 | INFO | Fetched Jaipur — AQI: 110
+2026-05-29 18:00:29,314 | INFO | Fetched Lucknow — AQI: 67
+2026-05-29 18:00:30,141 | INFO | Fetched Bhopal — AQI: 43
+2026-05-29 18:00:30,951 | INFO | Fetched Nagpur — AQI: 46
+2026-05-29 18:00:31,776 | INFO | Fetched Patna — AQI: 67
+2026-05-29 18:00:32,640 | INFO | Fetched Indore — AQI: 49
+2026-05-29 18:00:33,507 | INFO | Fetched Surat — AQI: 62
+2026-05-29 18:00:34,343 | INFO | Fetched Coimbatore — AQI: 29
+2026-05-29 18:00:35,181 | INFO | Fetched Kochi — AQI: 22
+2026-05-29 18:00:36,004 | INFO | Fetched Chandigarh — AQI: 73
+2026-05-29 18:00:36,843 | INFO | Fetched Varanasi — AQI: 73
+2026-05-29 18:00:37,730 | INFO | Fetched Agra — AQI: 408
+2026-05-29 18:00:38,593 | INFO | Fetched Ranchi — AQI: 65
+2026-05-29 18:00:39,435 | INFO | Fetched Mysore — AQI: 41
+2026-05-29 18:00:40,363 | INFO | Fetched Guwahati — AQI: 74
+2026-05-29 18:00:41,251 | INFO | Fetched Bhubaneswar — AQI: 67
+2026-05-29 18:00:41,262 | INFO | CSV saved to data/raw/aqi_data.csv
+2026-05-29 18:00:41,466 | INFO | Data saved to PostgreSQL database
+2026-05-29 18:00:41,467 | INFO | Pipeline completed successfully. 25/25 cities fetched.
+2026-05-29 18:00:42,459 | INFO | Starting data transformation — reading raw AQI data
+2026-05-29 18:00:42,475 | INFO | Loaded 25 rows from raw CSV
+2026-05-29 18:00:42,477 | INFO | No missing values found — data is clean
+2026-05-29 18:00:42,478 | INFO | Air quality labels assigned successfully
+2026-05-29 18:00:42,482 | INFO | Cleaned data saved — 25 rows written to data/processed/clean_aqi.csv
+2026-05-29 22:56:48,842 | INFO | Starting AQI data pipeline for 25 cities
+2026-05-29 22:56:50,120 | INFO | Fetched Visakhapatnam — AQI: 77
+2026-05-29 22:56:51,268 | INFO | Fetched Bangalore — AQI: 28
+2026-05-29 22:56:52,279 | INFO | Fetched Mumbai — AQI: 36
+2026-05-29 22:56:53,243 | INFO | Fetched Pune — AQI: 20
+2026-05-29 22:56:54,130 | INFO | Fetched Delhi — AQI: 265
+2026-05-29 22:56:54,958 | INFO | Fetched Chennai — AQI: 55
+2026-05-29 22:56:56,046 | INFO | Fetched Kolkata — AQI: 68
+2026-05-29 22:56:57,108 | INFO | Fetched Hyderabad — AQI: 31
+2026-05-29 22:56:58,180 | INFO | Fetched Ahmedabad — AQI: 57
+2026-05-29 22:56:59,020 | INFO | Fetched Jaipur — AQI: 103
+2026-05-29 22:56:59,943 | INFO | Fetched Lucknow — AQI: 67
+2026-05-29 22:57:00,861 | INFO | Fetched Bhopal — AQI: 49
+2026-05-29 22:57:01,731 | INFO | Fetched Nagpur — AQI: 39
+2026-05-29 22:57:02,701 | INFO | Fetched Patna — AQI: 65
+2026-05-29 22:57:03,530 | INFO | Fetched Indore — AQI: 60
+2026-05-29 22:57:04,378 | INFO | Fetched Surat — AQI: 61
+2026-05-29 22:57:05,244 | INFO | Fetched Coimbatore — AQI: 19
+2026-05-29 22:57:06,353 | INFO | Fetched Kochi — AQI: 20
+2026-05-29 22:57:07,377 | INFO | Fetched Chandigarh — AQI: 77
+2026-05-29 22:57:08,250 | INFO | Fetched Varanasi — AQI: 76
+2026-05-29 22:57:09,198 | INFO | Fetched Agra — AQI: 363
+2026-05-29 22:57:10,050 | INFO | Fetched Ranchi — AQI: 67
+2026-05-29 22:57:11,054 | INFO | Fetched Mysore — AQI: 22
+2026-05-29 22:57:12,134 | INFO | Fetched Guwahati — AQI: 75
+2026-05-29 22:57:13,124 | INFO | Fetched Bhubaneswar — AQI: 68
+2026-05-29 22:57:13,135 | INFO | CSV saved to data/raw/aqi_data.csv
+2026-05-29 22:57:13,135 | INFO | Pipeline completed successfully. 25/25 cities fetched.
+2026-05-29 22:57:14,138 | INFO | Starting data transformation — reading raw AQI data
+2026-05-29 22:57:14,155 | INFO | Loaded 25 rows from raw CSV
+2026-05-29 22:57:14,157 | INFO | No missing values found — data is clean
+2026-05-29 22:57:14,158 | INFO | Air quality labels assigned successfully
+2026-05-29 22:57:14,162 | INFO | Cleaned data saved — 25 rows written to data/processed/clean_aqi.csv
+2026-05-29 22:57:15,369 | INFO | Loading data from data/processed/clean_aqi.csv into PostgreSQL
+2026-05-29 22:57:15,378 | INFO | Found 25 rows to load
+2026-05-29 22:57:15,678 | INFO | Table aqi_readings is ready
+2026-05-29 22:57:57,552 | INFO | Loading data from data/processed/clean_aqi.csv into PostgreSQL
+2026-05-29 22:57:57,559 | INFO | Found 25 rows to load
+2026-05-29 22:57:57,671 | INFO | Table aqi_readings is ready
+2026-05-29 22:59:35,624 | INFO | Loading data from data/processed/clean_aqi.csv into PostgreSQL
+2026-05-29 22:59:35,631 | INFO | Found 25 rows to load
+2026-05-29 22:59:35,778 | INFO | Table aqi_readings is ready
+2026-05-29 22:59:35,802 | INFO | Load complete — 25 rows upserted
+2026-05-29 23:00:10,595 | INFO | Starting AQI data pipeline for 25 cities
+2026-05-29 23:00:11,614 | INFO | Fetched Visakhapatnam — AQI: 77
+2026-05-29 23:00:12,724 | INFO | Fetched Bangalore — AQI: 28
+2026-05-29 23:00:13,827 | INFO | Fetched Mumbai — AQI: 36
+2026-05-29 23:00:14,922 | INFO | Fetched Pune — AQI: 20
+2026-05-29 23:00:15,981 | INFO | Fetched Delhi — AQI: 265
+2026-05-29 23:00:17,130 | INFO | Fetched Chennai — AQI: 55
+2026-05-29 23:00:18,113 | INFO | Fetched Kolkata — AQI: 68
+2026-05-29 23:00:19,145 | INFO | Fetched Hyderabad — AQI: 31
+2026-05-29 23:00:20,094 | INFO | Fetched Ahmedabad — AQI: 57
+2026-05-29 23:00:21,150 | INFO | Fetched Jaipur — AQI: 103
+2026-05-29 23:00:21,990 | INFO | Fetched Lucknow — AQI: 67
+2026-05-29 23:00:23,519 | INFO | Fetched Bhopal — AQI: 49
+2026-05-29 23:00:24,644 | INFO | Fetched Nagpur — AQI: 39
+2026-05-29 23:00:25,612 | INFO | Fetched Patna — AQI: 65
+2026-05-29 23:00:26,495 | INFO | Fetched Indore — AQI: 60
+2026-05-29 23:00:27,474 | INFO | Fetched Surat — AQI: 61
+2026-05-29 23:00:28,309 | INFO | Fetched Coimbatore — AQI: 19
+2026-05-29 23:00:29,792 | INFO | Fetched Kochi — AQI: 20
+2026-05-29 23:00:30,750 | INFO | Fetched Chandigarh — AQI: 77
+2026-05-29 23:00:31,739 | INFO | Fetched Varanasi — AQI: 76
+2026-05-29 23:00:32,545 | INFO | Fetched Agra — AQI: 363
+2026-05-29 23:00:33,431 | INFO | Fetched Ranchi — AQI: 67
+2026-05-29 23:00:34,573 | INFO | Fetched Mysore — AQI: 22
+2026-05-29 23:00:35,568 | INFO | Fetched Guwahati — AQI: 75
+2026-05-29 23:00:36,422 | INFO | Fetched Bhubaneswar — AQI: 68
+2026-05-29 23:00:36,434 | INFO | CSV saved to data/raw/aqi_data.csv
+2026-05-29 23:00:36,434 | INFO | Pipeline completed successfully. 25/25 cities fetched.
+2026-05-29 23:00:37,419 | INFO | Starting data transformation — reading raw AQI data
+2026-05-29 23:00:37,436 | INFO | Loaded 25 rows from raw CSV
+2026-05-29 23:00:37,438 | INFO | No missing values found — data is clean
+2026-05-29 23:00:37,440 | INFO | Air quality labels assigned successfully
+2026-05-29 23:00:37,444 | INFO | Cleaned data saved — 25 rows written to data/processed/clean_aqi.csv
+2026-05-29 23:00:38,593 | INFO | Loading data from data/processed/clean_aqi.csv into PostgreSQL
+2026-05-29 23:00:38,603 | INFO | Found 25 rows to load
+2026-05-29 23:00:38,718 | INFO | Table aqi_readings is ready
+2026-05-29 23:00:38,750 | INFO | Load complete — 25 rows upserted

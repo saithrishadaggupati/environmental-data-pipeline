@@ -1,6 +1,7 @@
 import pandas as pd
 from src.logger import logger
 
+
 def run_quality_checks(df):
     """
     Runs automated data quality checks on AQI pipeline data.
@@ -67,6 +68,7 @@ def run_quality_checks(df):
     logger.info(f"Data quality report — {total} records checked, {issues} issues found and resolved, {len(df)} clean records ready for analysis")
 
     return df
+
 
 if __name__ == "__main__":
     df = pd.read_csv("data/processed/clean_aqi.csv")

@@ -6,6 +6,7 @@ from src.logger import logger
 
 load_dotenv()
 
+
 def get_connection():
     return psycopg2.connect(
         host=os.getenv("DB_HOST"),
@@ -14,6 +15,7 @@ def get_connection():
         user=os.getenv("DB_USER"),
         password=os.getenv("DB_PASSWORD")
     )
+
 
 def run_analysis():
     logger.info("Starting SQL analysis on AQI dataset")
@@ -109,24 +111,4 @@ def run_analysis():
         GROUP BY risk_level
         ORDER BY avg_aqi DESC
     """, conn)
-    print("\n🔴 Risk Level Distribution across Indian Cities:")
-    print(df6.to_string(index=False))
-
-    # Query 7 — AQI trend over time
-    logger.info("Running Query 7 — AQI trends over time")
-    df7 = pd.read_sql("""
-        SELECT 
-            DATE(timestamp) as date,
-            ROUND(AVG(aqi_index)::numeric, 2) as avg_aqi,
-            MAX(aqi_index) as peak_aqi,
-            MIN(aqi_index) as lowest_aqi
-        FROM aqi_readings
-        GROUP BY DATE(timestamp)
-        ORDER BY date DESC
-        LIMIT 10
-    """, conn)
-    print("\n📈 AQI Trends Over Time (Last 10 Days):")
-    print(df7.to_string(index=False))
-
-    conn.close()
-    logger.info("SQL analysis complete — 7 que
+    print("\n🔴 Risk Level Distribution
