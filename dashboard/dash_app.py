@@ -2,7 +2,7 @@ import dash
 from dash import dcc, html, dash_table
 import plotly.express as px
 import pandas as pd
-import psycopg2
+from sqlalchemy import create_engine
 import os
 from dotenv import load_dotenv
 from src.logger import logger
@@ -11,15 +11,12 @@ load_dotenv()
 
 # Load data
 logger.info("Loading data for Dash dashboard")
-conn = psycopg2.connect(
-    host=os.getenv("DB_HOST"),
-    port=os.getenv("DB_PORT"),
-    dbname=os.getenv("DB_NAME"),
-    user=os.getenv("DB_USER"),
-    password=os.getenv("DB_PASSWORD")
+
+engine = create_engine(
+    f"postgresql+psycopg2://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}"
+    f"@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
 )
-df = pd.read_sql("SELECT * FROM aqi_readings", conn)
-conn.close()
+df = pd.read_sql("SELECT * FROM aqi_readings", engine)
 
 latest = df.sort_values("timestamp").groupby("city").last().reset_index()
 latest_sorted = latest.sort_values("aqi_index", ascending=False)
