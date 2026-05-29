@@ -1,55 +1,44 @@
 # Environmental Air Quality Pipeline
 
-Built an automated data pipeline that ingests, transforms,
-and visualizes real-time air quality data across Indian cities
-— end to end, from raw API to dashboard.
+I built this project because air quality data in India 
+is scattered, hard to access, and rarely visualized 
+in one place. This pipeline fixes that.
 
-## What I Built
+It automatically pulls live AQI readings across 25 Indian 
+cities every 6 hours, cleans the data, stores it in 
+PostgreSQL, and surfaces it in an interactive dashboard.
 
-Engineered a multi-stage pipeline: live API ingestion →
-data cleaning → business logic (AQI classification) →
-visual dashboard. Mirrors real-world BI workflows.
+## What the data shows
+
+After processing 25 cities, here is what I found:
+- 8% of cities recorded **Hazardous** air quality
+- 68% of cities fell in the **poor air quality** range
+  (Moderate, Unhealthy, or Hazardous)
+- Only 32% of cities had **Good** air quality
+- **Agra** was the most polluted. **Mumbai** was the cleanest.
+
+## How it works
+
+1. `fetch_aqi.py` — calls a live REST API to pull 
+   raw AQI readings for 25 cities
+2. `clean_aqi.py` — removes nulls, standardizes formats, 
+   classifies each city by pollution level
+3. `load_to_postgres.py` — stores clean data in PostgreSQL
+4. `scheduler.py` — runs the full pipeline every 6 hours 
+   automatically
+5. `dashboard/app.py` — Streamlit dashboard showing 
+   live KPIs and city comparisons
 
 ## Tech Stack
 
-Python · Pandas · Matplotlib · REST API · CSV
+Python, Pandas, PostgreSQL, psycopg2, REST API, 
+Streamlit, schedule library
 
-## Key Skills Demonstrated
+## Setup
 
-* ETL pipeline development (Extract, Transform, Load)
-* Data wrangling and cleaning with Pandas
-* KPI definition and threshold-based classification
-* Dashboard and data visualization
-* Modular, production-style code structure
-
-## Business Impact
-
-Automates manual data collection across 5 cities,
-classifies pollution risk levels, and delivers
-visual insights instantly — reducing reporting time from
-hours to seconds.
-
-## How to Run
-
-1\. Clone the repo:
-
-&#x20;  git clone https://github.com/saithrishadaggupati/environmental-data-pipeline
-
-
-
-2\. Install dependencies:
-
-&#x20;  pip install -r requirements.txt
-
-
-
-3\. Run the dashboard:
-
-&#x20;  python -m streamlit run dashboard/app.py
-
-
-
-4\. View live demo:
-
-&#x20;  https://environmental-data-pipeline-2dnkog5rys5suebnkpqyzv.streamlit.app
-
+1. Clone this repo
+2. Copy `.env.example` to `.env` and add your credentials
+3. `pip install -r requirements.txt`
+4. `python src/loading/load_to_postgres.py`
+5. `python src/scheduler.py`
+6. `python -m streamlit run dashboard/app.py`
