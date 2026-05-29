@@ -1,49 +1,38 @@
-# Air Quality Analytics Pipeline
+# Environmental Air Quality Pipeline
 
-I built this<img width="1814" height="784" alt="image" src="https://github.com/user-attachments/assets/166e2e5c-d509-4863-93e7-94b8ee8774f4" />
+I built this project because air quality data in India 
+is scattered, hard to access, and rarely visualized 
+in one place. This pipeline fixes that.
 
-because I wanted to understand what an actual 
-data pipeline looks like end to end — not just cleaning a 
-CSV file, but the whole thing: pulling live data from an API, 
-processing it, and getting it into a dashboard someone could 
-actually use.
+It automatically pulls live AQI readings across 25 Indian 
+cities every 6 hours, cleans the data, stores it in 
+PostgreSQL, and surfaces it in an interactive dashboard.
 
-The project tracks air quality across 5 Indian cities in 
-real time, classifies pollution levels by risk category, 
-and displays everything in an interactive dashboard.
+## What the data shows
 
-## Live App
-👉 [Open Dashboard](https://environmental-data-pipeline-2dnkog5rys5suebnkpqyzv.streamlit.app)
+After processing 25 cities:
+- 8% of cities recorded Hazardous air quality
+- 68% of cities showed poor air quality (Moderate/Unhealthy/Hazardous)
+- Only 32% of cities had Good air quality
+- Agra was the most polluted. Mumbai was the cleanest.
 
 ## How it works
 
-**1. Data Collection**
-Pulls live AQI readings from a public REST API for 
-cities including Delhi, Mumbai, Chennai, Kolkata, 
-and Hyderabad.
+1. fetch_aqi.py — calls a live REST API for 25 cities
+2. clean_aqi.py — removes nulls, classifies pollution levels
+3. load_to_postgres.py — stores clean data in PostgreSQL
+4. scheduler.py — runs the full pipeline every 6 hours
+5. dashboard/app.py — Streamlit dashboard with live KPIs
 
-**2. Processing**
-Cleans the raw data with Pandas — handles missing 
-values, standardizes formats, and classifies each 
-reading into risk buckets (Good / Moderate / 
-Unhealthy / Hazardous).
+## Tech Stack
 
-**3. Dashboard**
-A Streamlit app that shows current AQI levels, 
-city comparisons, and trend lines using Plotly charts.
+Python, Pandas, PostgreSQL, psycopg2, REST API, Streamlit
 
-## Tech used
-Python · Pandas · Streamlit · Plotly · REST API
+## Setup
 
-## Run it yourself
-git clone https://github.com/saithrishadaggupati/environmental-data-pipeline
-pip install -r requirements.txt
-streamlit run dashboard/app.py
-
-## Project structure
-environmental-data-pipeline/
-├── dashboard/      # Streamlit app
-├── data/           # Raw and processed data
-├── src/            # Pipeline scripts
-├── .env.example    # Environment variable template
-└── requirements.txt
+1. Clone this repo
+2. Copy .env.example to .env and add your credentials
+3. pip install -r requirements.txt
+4. python src/loading/load_to_postgres.py
+5. python src/scheduler.py
+6. python -m streamlit run dashboard/app.py
