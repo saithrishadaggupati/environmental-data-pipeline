@@ -3,6 +3,7 @@ import pandas as pd
 import os
 import sqlite3
 from datetime import datetime
+from src.logger import logger
 
 CITIES = [
     {"name": "Visakhapatnam", "lat": 17.6868, "lon": 83.2185},
@@ -34,47 +35,50 @@ CITIES = [
 
 def save_to_database(df):
     """Save data to SQLite database"""
-    # Create data folder if it doesn't exist
     os.makedirs("data", exist_ok=True)
-    
-    # Connect to database (creates it if it doesn't exist)
     conn = sqlite3.connect("data/aqi_database.db")
-    
-    # Save dataframe to SQL table
-    # if_exists='append' means it ADDS new data each time (doesn't overwrite)
     df.to_sql("aqi_readings", conn, if_exists="append", index=False)
-    
     conn.close()
-    print("✅ Data saved to SQLite database: data/aqi_database.db")
+    logger.info("Data saved to SQLite database: data/aqi_database.db")
 
 def fetch_all_cities():
+    logger.info(f"Starting AQI data pipeline for {len(CITIES)} cities")
     results = []
+    failed = []
+
     for city in CITIES:
-        url = f"https://air-quality-api.open-meteo.com/v1/air-quality?latitude={city['lat']}&longitude={city['lon']}&current=pm2_5,pm10,carbon_monoxide,european_aqi"
-        response = requests.get(url)
-        data = response.json()
-        current = data["current"]
-        results.append({
-            "city": city["name"],
-            "aqi_index": current["european_aqi"],
-            "pm2_5": current["pm2_5"],
-            "pm10": current["pm10"],
-            "co": current["carbon_monoxide"],
-            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        })
-        print(f"✅ Fetched: {city['name']}")
+        try:
+            url = f"https://air-quality-api.open-meteo.com/v1/air-quality?latitude={city['lat']}&longitude={city['lon']}&current=pm2_5,pm10,carbon_monoxide,european_aqi"
+            response = requests.get(url)
+            data = response.json()
+            current = data["current"]
+            results.append({
+                "city": city["name"],
+                "aqi_index": current["european_aqi"],
+                "pm2_5": current["pm2_5"],
+                "pm10": current["pm10"],
+                "co": current["carbon_monoxide"],
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            })
+            logger.info(f"Fetched {city['name']} — AQI: {current['european_aqi']}")
+
+        except Exception as e:
+            logger.error(f"Failed to fetch {city['name']}: {e}")
+            failed.append(city["name"])
 
     df = pd.DataFrame(results)
 
-    # Save BOTH ways
     os.makedirs("data/raw", exist_ok=True)
     df.to_csv("data/raw/aqi_data.csv", index=False)
-    print("\n✅ CSV saved!")
+    logger.info("CSV saved to data/raw/aqi_data.csv")
 
-    save_to_database(df)  # NEW — saves to database too
+    save_to_database(df)
 
-    print("\n📊 Preview:")
-    print(df[["city", "aqi_index", "pm2_5"]].head())
+    if failed:
+        logger.warning(f"Pipeline completed with {len(failed)} failed cities: {failed}")
+    else:
+        logger.info(f"Pipeline completed successfully. {len(results)}/{len(CITIES)} cities fetched.")
+
     return df
 
 fetch_all_cities()

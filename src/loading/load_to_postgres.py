@@ -2,6 +2,7 @@ import psycopg2
 import pandas as pd
 import os
 from dotenv import load_dotenv
+from src.logger import logger
 
 load_dotenv()
 
@@ -15,6 +16,7 @@ def get_connection():
     )
 
 def create_table():
+    logger.info("Checking if aqi_readings table exists in PostgreSQL")
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("""
@@ -33,13 +35,17 @@ def create_table():
     conn.commit()
     cursor.close()
     conn.close()
-    print("✅ Table ready")
+    logger.info("Table aqi_readings is ready")
 
 def load_data(csv_path):
+    logger.info(f"Loading data from {csv_path} into PostgreSQL")
     df = pd.read_csv(csv_path)
+    logger.info(f"Found {len(df)} rows to insert")
     conn = get_connection()
     cursor = conn.cursor()
     rows_inserted = 0
+    rows_skipped = 0
+
     for _, row in df.iterrows():
         try:
             cursor.execute("""
@@ -57,11 +63,13 @@ def load_data(csv_path):
             ))
             rows_inserted += 1
         except Exception as e:
-            print(f"Skipped row: {e}")
+            logger.warning(f"Skipped row for {row['city']}: {e}")
+            rows_skipped += 1
+
     conn.commit()
     cursor.close()
     conn.close()
-    print(f"✅ Inserted {rows_inserted} rows into PostgreSQL")
+    logger.info(f"Load complete — {rows_inserted} rows inserted, {rows_skipped} skipped")
 
 if __name__ == "__main__":
     create_table()
