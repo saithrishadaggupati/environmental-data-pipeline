@@ -1,4 +1,4 @@
-\# Environmental Air Quality Data Pipeline
+## Environmental Air Quality Data Pipeline
 
 
 
@@ -26,7 +26,7 @@ refreshes and built-in data quality checks.
 
 
 
-\## What the data actually showed
+## What the data actually showed
 
 
 
@@ -50,7 +50,7 @@ always more nuanced than what gets reported.
 
 
 
-Key findings across 25 cities:
+## Key findings across 25 cities:
 
 \- 68% of cities recorded Moderate to Hazardous air quality
 
@@ -76,7 +76,7 @@ the data easier to understand and analyze.
 
 
 
-\## How the pipeline works
+## How the pipeline works
 
 
 
@@ -131,7 +131,7 @@ Key capabilities include:
 
   levels
 
-  
+
 ## Tech Stack
 
 Python, Pandas, SQL, PostgreSQL, SQLite, Power BI, Tableau,
@@ -141,7 +141,7 @@ Excel, REST API, Streamlit, Dash, Plotly, APScheduler,
 psycopg2, python-dotenv
 
 
-\## Setup
+## Setup
 
 
 
