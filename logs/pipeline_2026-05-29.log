@@ -1,3 +1,5 @@
 2026-05-29 13:48:25,280 | INFO | Starting Excel export
 2026-05-29 13:49:14,665 | INFO | Starting Excel export
 2026-05-29 13:49:15,028 | INFO | Excel report exported to data/exports/AQI_India_Report.xlsx
+2026-05-29 13:52:45,925 | INFO | Starting statistical analysis on AQI dataset
+2026-05-29 13:52:45,968 | INFO | Statistical analysis complete
