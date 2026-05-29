@@ -12,13 +12,17 @@ change that.
 
 
 
-So I built a pipeline that pulls live AQI readings across 25 
+So I built an end-to-end ETL and Business Intelligence pipeline
 
-Indian cities every 6 hours, cleans and validates the data, 
+that pulls live AQI readings across 25 Indian cities every 6
 
-stores it in PostgreSQL, and visualizes it in an interactive 
+hours, cleans and validates the data, stores it in PostgreSQL,
 
-dashboard. It runs automatically — no manual work needed.
+and visualizes insights through Power BI, Tableau,
+
+Streamlit, and Dash dashboards. It runs automatically with scheduled
+
+refreshes and built-in data quality checks.
 
 
 
@@ -57,6 +61,20 @@ Key findings across 25 cities:
 \- Mumbai recorded the cleanest air quality in the dataset
 
 
+## Business Impact
+
+This project shows how raw environmental data can be collected,
+
+cleaned, validated, and transformed into useful insights
+
+through automated pipelines and interactive dashboards.
+
+It helps identify air quality trends across cities and makes
+
+the data easier to understand and analyze.
+
+
+
 
 \## How the pipeline works
 
@@ -81,15 +99,46 @@ Raw API data goes through 4 stages before it reaches the dashboard:
 7\. \*\*Visualize\*\* — Streamlit dashboard surfaces live KPIs, trends, and city breakdowns
 
 
+## Key Features
 
-\## Tech Stack
+This project combines data engineering, analytics, and
 
+business intelligence concepts into a single automated
 
+workflow.
 
-Python, Pandas, PostgreSQL, SQLite, REST API, Streamlit, 
+Key capabilities include:
 
-Plotly, APScheduler, psycopg2, python-dotenv
+- Automated AQI data collection across 25 Indian cities
 
+- End-to-end ETL processing with scheduled refreshes every
+
+  6 hours
+
+- Data cleaning, validation, and quality monitoring
+
+- PostgreSQL integration for structured data storage
+
+- KPI generation and trend analysis using SQL
+
+- Excel report generation for reporting and analysis
+
+- Interactive dashboards built with Power BI, Tableau,
+
+  Streamlit, and Dash
+
+- Real-time monitoring of air quality trends and pollution
+
+  levels
+
+  
+## Tech Stack
+
+Python, Pandas, SQL, PostgreSQL, SQLite, Power BI, Tableau,
+
+Excel, REST API, Streamlit, Dash, Plotly, APScheduler,
+
+psycopg2, python-dotenv
 
 
 \## Setup
