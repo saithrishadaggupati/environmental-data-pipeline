@@ -13,8 +13,10 @@ logger.info("Loading data for Dash dashboard")
 
 engine = create_engine(
     f"postgresql+psycopg2://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}"
-    f"@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
+    f"@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}",
+    connect_args={"sslmode": "require"}
 )
+
 df = pd.read_sql("SELECT * FROM aqi_readings", engine)
 
 latest = df.sort_values("timestamp").groupby("city").last().reset_index()
@@ -62,6 +64,7 @@ fig_scatter = px.scatter(
 
 app = dash.Dash(__name__)
 app.title = "India AQI Dashboard"
+server = app.server
 
 card_style = {
     'backgroundColor': 'white',
@@ -79,7 +82,6 @@ app.layout = html.Div(
                 style={'textAlign': 'center', 'color': '#2c3e50'}),
         html.P("Live data from 25 Indian cities — updated every 6 hours",
                style={'textAlign': 'center', 'color': '#7f8c8d'}),
-
         html.Div(
             style={'display': 'flex', 'justifyContent': 'space-around', 'marginBottom': '30px'},
             children=[
@@ -101,7 +103,6 @@ app.layout = html.Div(
                 ]),
             ]
         ),
-
         html.Div(
             style={'display': 'flex', 'gap': '20px', 'marginBottom': '20px'},
             children=[
@@ -113,13 +114,11 @@ app.layout = html.Div(
                          children=[dcc.Graph(figure=fig_pie)]),
             ]
         ),
-
         html.Div(
             style={'backgroundColor': 'white', 'borderRadius': '10px',
                    'padding': '10px', 'boxShadow': '0 2px 4px rgba(0,0,0,0.1)', 'marginBottom': '20px'},
             children=[dcc.Graph(figure=fig_scatter)]
         ),
-
         html.H3("Full Data Table", style={'color': '#2c3e50'}),
         dash_table.DataTable(
             data=latest_sorted[["city", "aqi_index", "pm2_5", "pm10", "co", "air_quality_label", "timestamp"]].to_dict('records'),

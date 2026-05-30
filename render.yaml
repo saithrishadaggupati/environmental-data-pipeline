@@ -1,6 +1,17 @@
 services:
   - type: web
-    name: environmental-data-pipeline
+    name: india-aqi-dashboard
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: python dashboard/dash_app.py
+    startCommand: gunicorn dashboard.dash_app:server
+    envVars:
+      - key: DB_HOST
+        value: ep-solitary-leaf-aopa2tib.c-2.ap-southeast-1.aws.neon.tech
+      - key: DB_PORT
+        value: 5432
+      - key: DB_NAME
+        value: neondb
+      - key: DB_USER
+        value: neondb_owner
+      - key: DB_PASSWORD
+        value: npg_0wNgA2WhsKXP
