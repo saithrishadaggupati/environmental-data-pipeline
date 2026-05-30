@@ -1,0 +1,45 @@
+2026-05-30 11:25:35,335 | INFO | Starting AQI data pipeline for 25 cities
+2026-05-30 11:25:36,510 | INFO | Fetched Visakhapatnam — AQI: 77
+2026-05-30 11:25:37,539 | INFO | Fetched Bangalore — AQI: 38
+2026-05-30 11:25:38,460 | INFO | Fetched Mumbai — AQI: 40
+2026-05-30 11:25:39,432 | INFO | Fetched Pune — AQI: 33
+2026-05-30 11:25:40,307 | INFO | Fetched Delhi — AQI: 247
+2026-05-30 11:25:41,176 | INFO | Fetched Chennai — AQI: 64
+2026-05-30 11:25:42,016 | INFO | Fetched Kolkata — AQI: 86
+2026-05-30 11:25:42,888 | INFO | Fetched Hyderabad — AQI: 41
+2026-05-30 11:25:43,710 | INFO | Fetched Ahmedabad — AQI: 53
+2026-05-30 11:25:44,573 | INFO | Fetched Jaipur — AQI: 114
+2026-05-30 11:25:45,470 | INFO | Fetched Lucknow — AQI: 65
+2026-05-30 11:25:46,542 | INFO | Fetched Bhopal — AQI: 47
+2026-05-30 11:25:47,384 | INFO | Fetched Nagpur — AQI: 61
+2026-05-30 11:25:48,310 | INFO | Fetched Patna — AQI: 71
+2026-05-30 11:25:49,211 | INFO | Fetched Indore — AQI: 60
+2026-05-30 11:25:50,066 | INFO | Fetched Surat — AQI: 63
+2026-05-30 11:25:50,961 | INFO | Fetched Coimbatore — AQI: 32
+2026-05-30 11:25:51,831 | INFO | Fetched Kochi — AQI: 30
+2026-05-30 11:25:52,646 | INFO | Fetched Chandigarh — AQI: 68
+2026-05-30 11:25:53,488 | INFO | Fetched Varanasi — AQI: 71
+2026-05-30 11:25:54,374 | INFO | Fetched Agra — AQI: 198
+2026-05-30 11:25:55,293 | INFO | Fetched Ranchi — AQI: 80
+2026-05-30 11:25:56,147 | INFO | Fetched Mysore — AQI: 35
+2026-05-30 11:25:56,994 | INFO | Fetched Guwahati — AQI: 66
+2026-05-30 11:25:57,859 | INFO | Fetched Bhubaneswar — AQI: 72
+2026-05-30 11:25:57,871 | INFO | CSV saved to data/raw/aqi_data.csv
+2026-05-30 11:25:57,872 | INFO | Pipeline completed successfully. 25/25 cities fetched.
+2026-05-30 11:25:58,905 | INFO | Starting data transformation — reading raw AQI data
+2026-05-30 11:25:58,921 | INFO | Loaded 25 rows from raw CSV
+2026-05-30 11:25:58,923 | INFO | No missing values found — data is clean
+2026-05-30 11:25:58,924 | INFO | Air quality labels assigned successfully
+2026-05-30 11:25:58,929 | INFO | Cleaned data saved — 25 rows written to data/processed/clean_aqi.csv
+2026-05-30 11:26:00,248 | INFO | Loading data from data/processed/clean_aqi.csv into PostgreSQL
+2026-05-30 11:26:00,259 | INFO | Found 25 rows to load
+2026-05-30 11:28:59,508 | INFO | Loading data from data/processed/clean_aqi.csv into PostgreSQL
+2026-05-30 11:28:59,520 | INFO | Found 25 rows to load
+2026-05-30 11:31:22,363 | INFO | Loading data from data/processed/clean_aqi.csv into PostgreSQL
+2026-05-30 11:31:22,371 | INFO | Found 25 rows to load
+2026-05-30 11:32:57,595 | INFO | Loading data from data/processed/clean_aqi.csv into PostgreSQL
+2026-05-30 11:32:57,603 | INFO | Found 25 rows to load
+2026-05-30 11:33:47,601 | INFO | Loading data from data/processed/clean_aqi.csv into PostgreSQL
+2026-05-30 11:33:47,608 | INFO | Found 25 rows to load
+2026-05-30 11:33:52,412 | INFO | Table aqi_readings is ready
+2026-05-30 11:33:54,900 | INFO | Load complete — 25 rows upserted
