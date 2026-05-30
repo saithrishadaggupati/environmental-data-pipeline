@@ -10,3 +10,5 @@ dash
 openpyxl
 schedule
 gunicorn
+folium
+streamlit-folium
