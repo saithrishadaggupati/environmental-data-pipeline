@@ -25,6 +25,16 @@ def load_data():
     return pd.read_sql("SELECT * FROM aqi_readings", engine)
 
 
+@st.cache_data(ttl=3600)
+def load_history():
+    engine = create_engine(
+        f"postgresql+psycopg2://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}"
+        f"@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}",
+        connect_args={"sslmode": "require"}
+    )
+    return pd.read_sql("SELECT * FROM aqi_history ORDER BY timestamp DESC", engine)
+
+
 df = load_data()
 latest = df.sort_values("timestamp").groupby("city").last().reset_index()
 
@@ -139,6 +149,23 @@ fig3 = px.scatter(
     title="PM2.5 vs AQI Index by City"
 )
 st.plotly_chart(fig3, use_container_width=True)
+
+# Trend Chart
+st.subheader("📉 AQI Trend Over Time")
+history = load_history()
+
+if len(history) > 25:
+    top_cities = latest.nlargest(5, "aqi_index")["city"].tolist()
+    history_filtered = history[history["city"].isin(top_cities)]
+    fig4 = px.line(
+        history_filtered,
+        x="timestamp", y="aqi_index",
+        color="city",
+        title="AQI Trend — Top 5 Most Polluted Cities"
+    )
+    st.plotly_chart(fig4, use_container_width=True)
+else:
+    st.info("Trend data will appear after a few pipeline runs. Check back in 6 hours!")
 
 # Data Table
 st.subheader("📋 Full Data Table")

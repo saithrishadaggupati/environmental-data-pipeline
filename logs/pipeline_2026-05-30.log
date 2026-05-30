@@ -43,3 +43,14 @@
 2026-05-30 11:33:47,608 | INFO | Found 25 rows to load
 2026-05-30 11:33:52,412 | INFO | Table aqi_readings is ready
 2026-05-30 11:33:54,900 | INFO | Load complete — 25 rows upserted
+2026-05-30 12:31:38,480 | INFO | Loading data from data/processed/clean_aqi.csv into PostgreSQL
+2026-05-30 12:31:38,490 | INFO | Found 25 rows to load
+2026-05-30 12:32:36,878 | INFO | Loading data from data/processed/clean_aqi.csv into PostgreSQL
+2026-05-30 12:32:36,885 | INFO | Found 25 rows to load
+2026-05-30 12:32:39,099 | INFO | Table aqi_readings is ready
+2026-05-30 12:32:41,256 | INFO | Load complete — 25 rows upserted
+2026-05-30 12:33:30,927 | INFO | Loading data from data/processed/clean_aqi.csv into PostgreSQL
+2026-05-30 12:33:30,940 | INFO | Found 25 rows to load
+2026-05-30 12:33:32,819 | INFO | Tables aqi_readings and aqi_history are ready
+2026-05-30 12:33:37,132 | INFO | Load complete — 25 rows upserted to aqi_readings
+2026-05-30 12:33:37,132 | INFO | Load complete — 25 rows appended to aqi_history
