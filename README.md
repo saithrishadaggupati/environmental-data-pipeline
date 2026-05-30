@@ -1,60 +1,49 @@
 # India AQI Data Pipeline
 
-I kept reading headlines about air pollution in Indian cities but never trusted the numbers. So I built a pipeline to collect the real data myself.
+[
 
-Every 6 hours, it pulls live AQI readings from 25 cities, cleans and validates the data, loads it into PostgreSQL, and updates a Streamlit dashboard automatically.
+![Dashboard Preview](dashboard_preview.png)
 
----
+](https://environmental-data-pipeline-2dnkog5rys5suebnkpqyzv.streamlit.app)
 
-## What I found
+> Click the image to open the live dashboard
 
-- Agra was consistently the most polluted — worse than Delhi on most days
-- 68% of cities had Moderate to Hazardous air quality
-- Coimbatore and Kochi had the cleanest air in the dataset
-- The data told a very different story than the headlines
+I got tired of reading air pollution headlines without seeing the actual numbers. So I built this — an automated pipeline that pulls live AQI data from 25 Indian cities every 6 hours, stores it in a cloud database, and visualizes it on an interactive map.
 
----
+Delhi and Agra were consistently the most polluted. Kochi and Coimbatore stayed clean throughout. The south-north divide in air quality was sharper than I expected.
 
-## How it works
-
-| Step | File | What it does |
-|------|------|-------------|
-| Fetch | `fetch_aqi.py` | Pulls live data from Open-Meteo API for 25 cities |
-| Clean | `clean_aqi.py` | Removes nulls, assigns pollution labels |
-| Validate | `data_quality.py` | Runs 6 automated data quality checks |
-| Load | `load_to_postgres.py` | Upserts records into PostgreSQL |
-| Schedule | `scheduler.py` | Runs everything every 6 hours automatically |
-| Export | `export_excel.py` | Generates Excel report with summary sheet |
-| Dashboard | `dashboard/app.py` | Live Streamlit dashboard with KPIs and charts |
+**[→ Live Streamlit Dashboard](https://environmental-data-pipeline-2dnkog5rys5suebnkpqyzv.streamlit.app)** · **[→ Live Dash Dashboard](https://environmental-data-pipeline.onrender.com)**
 
 ---
 
-## Tech Stack
+## What it does
 
-Python · Pandas · PostgreSQL · SQLAlchemy · Streamlit · Power BI · Tableau · Plotly · REST API · Excel
+Fetches live AQI data → cleans and validates it → loads into PostgreSQL → updates dashboards every 6 hours automatically. Includes a historical trend tracker, email alerts when cities hit dangerous levels, and an Excel export for reporting.
 
----
+## Tech
 
-## Run it yourself
+Python · PostgreSQL · Neon · SQLAlchemy · Streamlit · Dash · Plotly · Folium · REST API · Pandas · Render
 
----
+## Run it
 
-## Project Structure
+```bash
+git clone https://github.com/saithrishadaggupati/environmental-data-pipeline.git
+pip install -r requirements.txt
+cp .env.example .env
+python -m src.scheduler
+streamlit run dashboard/app.py
+
+##Project Structure  
 
 src/
 ├── ingestion/fetch_aqi.py         # API collection
 ├── transformation/clean_aqi.py    # Cleaning & labeling
 ├── transformation/data_quality.py # Quality checks
-├── loading/load_to_postgres.py    # PostgreSQL loading
+├── loading/load_to_postgres.py    # PostgreSQL + history
 ├── scheduler.py                   # Automation
 ├── export_excel.py                # Excel reports
+├── alert.py                       # Email alerts
 └── logger.py                      # Logging
 sql/analysis_queries.py            # 7 SQL queries
 dashboard/app.py                   # Streamlit dashboard
-
-```bash
-git clone https://github.com/saithrishadaggupati/environmental-data-pipeline.git
-pip install -r requirements.txt
-cp .env.example .env  # add your PostgreSQL credentials
-python -m src.scheduler
-streamlit run dashboard/app.py
+dashboard/dash_app.py              # Dash dashboard
