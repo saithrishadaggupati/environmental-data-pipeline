@@ -1,7 +1,11 @@
 pandas
-requests==2.31.0
-plotly==5.22.0
-python-dotenv==1.0.1
-APScheduler==3.10.4
+numpy
+requests
+plotly
+python-dotenv
 psycopg2-binary
+sqlalchemy
+streamlit
 dash
+openpyxl
+schedule

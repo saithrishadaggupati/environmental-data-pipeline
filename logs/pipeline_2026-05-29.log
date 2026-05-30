@@ -255,3 +255,7 @@
 2026-05-29 23:00:38,603 | INFO | Found 25 rows to load
 2026-05-29 23:00:38,718 | INFO | Table aqi_readings is ready
 2026-05-29 23:00:38,750 | INFO | Load complete — 25 rows upserted
+2026-05-29 23:10:24,115 | INFO | Loading data for Dash dashboard
+2026-05-29 23:10:24,967 | INFO | Dash is running on http://127.0.0.1:8050/
+
+2026-05-29 23:10:26,628 | INFO | Loading data for Dash dashboard
