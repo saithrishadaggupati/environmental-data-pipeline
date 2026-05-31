@@ -26,6 +26,11 @@ Delhi and Agra were consistently the most polluted. Kochi and Coimbatore stayed 
 - Tier-3 cities like Patna and Varanasi exceed safe PM2.5 limits more often than metros
 - Clear south-north divide — southern cities average 40% lower AQI than northern ones
 
+| Region | Cities | Avg AQI | Category |
+|--------|--------|---------|----------|
+| North | Delhi, Agra, Patna | ~187 | Poor |
+| South | Kochi, Coimbatore, Chennai | ~52 | Good |
+
 ---
 
 ## How it works
