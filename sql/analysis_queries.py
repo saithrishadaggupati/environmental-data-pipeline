@@ -112,3 +112,30 @@ def run_analysis():
         ORDER BY avg_aqi DESC
     """, conn)
     print("\n🔴 Risk Level Distribution
+          # Query 7 — City Tier Analysis (Metro vs Tier-2 vs Tier-3)
+    logger.info("Running Query 7 — City tier pollution comparison")
+    df7 = pd.read_sql("""
+        WITH tier_classified AS (
+            SELECT 
+                city,
+                aqi_index,
+                air_quality_label,
+                CASE 
+                    WHEN city IN ('Delhi', 'Mumbai', 'Bangalore', 'Chennai', 'Kolkata', 'Hyderabad') THEN 'Metro'
+                    WHEN city IN ('Pune', 'Ahmedabad', 'Jaipur', 'Lucknow', 'Surat', 'Nagpur') THEN 'Tier-2'
+                    ELSE 'Tier-3'
+                END as city_tier
+            FROM aqi_readings
+        )
+        SELECT 
+            city_tier,
+            COUNT(*) as total_cities,
+            ROUND(AVG(aqi_index)::numeric, 2) as avg_aqi,
+            MAX(aqi_index) as worst_aqi,
+            MIN(aqi_index) as best_aqi
+        FROM tier_classified
+        GROUP BY city_tier
+        ORDER BY avg_aqi DESC
+    """, conn)
+    print("\n🏙️ Pollution by City Tier (Metro vs Tier-2 vs Tier-3):")
+    print(df7.to_string(index=False))
