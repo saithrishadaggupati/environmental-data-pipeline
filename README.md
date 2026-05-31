@@ -5,7 +5,7 @@
 ![Live Dashboard](https://img.shields.io/badge/Live%20Dashboard-Click%20Here-brightgreen)
 
 ](https://environmental-data-pipeline-2dnkog5rys5suebnkpqyzv.streamlit.app)
-
+---
 
 
 ![Dashboard Preview](dashboard_preview.png)
