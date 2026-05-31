@@ -1,8 +1,11 @@
 # India AQI Data Pipeline
 
-[![Live Dashboard](https://img.shields.io/badge/Live%20Dashboard-Click%20Here-brightgreen)
+[
 
-](https://environmental-data-pipeline-2dnkog5rys5suebnkpqyzv.streamlit.app)-
+![Live Dashboard](https://img.shields.io/badge/Live%20Dashboard-Click%20Here-brightgreen)
+
+](https://environmental-data-pipeline-2dnkog5rys5suebnkpqyzv.streamlit.app)
+
 
 
 ![Dashboard Preview](dashboard_preview.png)
@@ -70,18 +73,3 @@ pip install -r requirements.txt
 cp .env.example .env
 python -m src.scheduler
 streamlit run dashboard/app.py
-## Project Structure
-
-src/
-- ingestion/fetch_aqi.py         # API collection
-- transformation/clean_aqi.py    # Cleaning & labeling
-- transformation/data_quality.py # Quality checks
-- loading/load_to_postgres.py    # PostgreSQL + history
-- scheduler.py                   # Automation
-- export_excel.py                # Excel reports
-- alert.py                       # Email alerts
-- logger.py                      # Logging
-
-sql/analysis_queries.py          # 7 SQL queries
-dashboard/app.py                 # Streamlit dashboard
-dashboard/dash_app.py            # Dash dashboard
