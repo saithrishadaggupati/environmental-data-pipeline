@@ -1,6 +1,7 @@
 import requests
 import pandas as pd
 import os
+import time
 from datetime import datetime
 from dotenv import load_dotenv
 from src.logger import logger
@@ -35,7 +36,6 @@ CITIES = [
     {"name": "Bhubaneswar", "lat": 20.2961, "lon": 85.8245},
 ]
 
-
 def get_air_quality_label(aqi):
     if aqi <= 50:
         return "Good"
@@ -46,38 +46,44 @@ def get_air_quality_label(aqi):
     else:
         return "Hazardous"
 
-
 def fetch_all_cities():
     logger.info(f"Starting AQI data pipeline for {len(CITIES)} cities")
     results = []
     failed = []
 
     for city in CITIES:
-        try:
-            url = (
-                f"https://air-quality-api.open-meteo.com/v1/air-quality"
-                f"?latitude={city['lat']}&longitude={city['lon']}"
-                f"&current=pm2_5,pm10,carbon_monoxide,european_aqi"
-            )
-            response = requests.get(url, timeout=10)
-            response.raise_for_status()
-            data = response.json()
-            current = data["current"]
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                url = (
+                    f"https://air-quality-api.open-meteo.com/v1/air-quality"
+                    f"?latitude={city['lat']}&longitude={city['lon']}"
+                    f"&current=pm2_5,pm10,carbon_monoxide,european_aqi"
+                )
+                response = requests.get(url, timeout=10)
+                response.raise_for_status()
+                data = response.json()
+                current = data["current"]
 
-            results.append({
-                "city": city["name"],
-                "aqi_index": current["european_aqi"],
-                "pm2_5": current["pm2_5"],
-                "pm10": current["pm10"],
-                "co": current["carbon_monoxide"],
-                "air_quality_label": get_air_quality_label(current["european_aqi"]),
-                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            })
-            logger.info(f"Fetched {city['name']} — AQI: {current['european_aqi']}")
+                results.append({
+                    "city": city["name"],
+                    "aqi_index": current["european_aqi"],
+                    "pm2_5": current["pm2_5"],
+                    "pm10": current["pm10"],
+                    "co": current["carbon_monoxide"],
+                    "air_quality_label": get_air_quality_label(current["european_aqi"]),
+                    "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                })
+                logger.info(f"Fetched {city['name']} — AQI: {current['european_aqi']}")
+                break
 
-        except Exception as e:
-            logger.error(f"Failed to fetch {city['name']}: {e}")
-            failed.append(city["name"])
+            except Exception as e:
+                logger.warning(f"Attempt {attempt+1} failed for {city['name']}: {e}")
+                if attempt < max_retries - 1:
+                    time.sleep(2)
+                else:
+                    logger.error(f"All 3 attempts failed for {city['name']}")
+                    failed.append(city["name"])
 
     df = pd.DataFrame(results)
 
@@ -91,7 +97,6 @@ def fetch_all_cities():
         logger.info(f"Pipeline completed successfully. {len(results)}/{len(CITIES)} cities fetched.")
 
     return df
-
 
 if __name__ == "__main__":
     fetch_all_cities()
