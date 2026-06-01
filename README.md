@@ -11,9 +11,9 @@
 
 ---
 
-I was curious to see how # air quality changes across India instead of looking at just #one city.
+I was curious to see how air quality changes across India instead of looking at just one city.
 
-This project automatically fetches AQI data from #25 Indian cities, stores historical records in #PostgreSQL, and visualizes the data through an #interactive dashboard.
+This project automatically fetches AQI data from #25 Indian cities, stores historical records in PostgreSQL, and visualizes the data through an interactive dashboard.
 
 **[Live Streamlit Dashboard](https://environmental-data-pipeline-2dnkog5rys5suebnkpqyzv.streamlit.app)** · **[Live Dash Dashboard](https://environmental-data-pipeline.onrender.com)**
 
