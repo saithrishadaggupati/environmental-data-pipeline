@@ -11,9 +11,9 @@
 
 ---
 
-I got tired of reading air pollution headlines without seeing the actual numbers. So I built this — an automated pipeline that pulls live AQI data from 25 Indian cities every 6 hours, stores it in a cloud database, and visualizes it on an interactive map.
+I was curious to see how air quality changes across India instead of looking at just one city.
 
-Delhi and Agra were consistently the most polluted. Kochi and Coimbatore stayed clean throughout. The south-north divide in air quality was sharper than I expected.
+This project automatically fetches AQI data from 25 Indian cities, stores historical records in PostgreSQL, and visualizes the data through an interactive dashboard.
 
 **[Live Streamlit Dashboard](https://environmental-data-pipeline-2dnkog5rys5suebnkpqyzv.streamlit.app)** · **[Live Dash Dashboard](https://environmental-data-pipeline.onrender.com)**
 
