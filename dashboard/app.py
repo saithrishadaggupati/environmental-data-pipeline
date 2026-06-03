@@ -32,7 +32,7 @@ def load_history():
         f"@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}",
         connect_args={"sslmode": "require"}
     )
-    return pd.read_sql("SELECT * FROM aqi_history ORDER BY timestamp DESC", engine)
+    return pd.read_csv("data/raw/aqi_data.csv")
 
 
 df = load_data()
