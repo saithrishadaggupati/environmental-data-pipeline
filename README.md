@@ -46,15 +46,15 @@ Open-Meteo API → Python ETL → MongoDB Atlas (raw) → CSV → Streamlit + Da
 - alert.py — sends email alerts when cities hit dangerous AQI levels
 - export_excel.py — Excel export for offline reporting
 
-**PostgreSQL Analysis (8 queries, running on Neon cloud):**
-- Top polluted cities
-- Average AQI by category
-- Cities above danger threshold (AQI > 200)
-- Clean vs polluted city ratio
-- City rankings vs national average (window function)
-- High risk city CTE analysis
-- City-tier comparison — Metro vs Tier-2 vs Tier-3
-- Time-of-day AQI pattern analysis
+**PostgreSQL KPIs (src/transformation/kpi.py):**
+- National average AQI across all 101 cities
+- Category distribution — % of cities in Good / Moderate / Unhealthy / Hazardous
+- Top 10 most polluted cities
+- % of cities exceeding WHO safe limit (AQI > 100)
+- City health score — normalised 0–100 inverse of AQI
+- Pollution gap — worst vs best city (247 vs 30 = gap of 217)
+- Hazardous city count (AQI > 200)
+- AQI trend across historical pipeline runs
 
 **Statistical analysis:**
 - Descriptive stats — mean, median, std dev, skewness (2.56), kurtosis (6.99)
