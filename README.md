@@ -24,7 +24,8 @@ The system automatically collects, processes, and analyzes air quality data, mak
 
 - Delhi and Agra consistently rank as the most polluted cities across all runs
 - Kochi, Coimbatore, and Thiruvananthapuram hold steady in the "Good" range
-- Tier-3 cities like Patna and Varanasi exceed safe PM2.5 limits more often than metros
+- City tiers classified from Census 2011 population data — 8 Metro, 32 Tier-1, 32 Tier-2, 29 Tier-3 cities across the dataset
+- Tier-1 cities like Patna and Varanasi exceed safe AQI limits more often than southern metros
 - A clear south-north divide — southern cities average 40% lower AQI than northern ones
 
 | Region | Cities | Avg AQI | Category |
