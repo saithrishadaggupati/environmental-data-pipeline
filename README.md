@@ -46,7 +46,7 @@ Open-Meteo API → Python ETL → MongoDB Atlas (raw) → CSV → Streamlit + Da
 - alert.py — sends email alerts when cities hit dangerous AQI levels
 - export_excel.py — Excel export for offline reporting
 
-**SQL Analysis (8 queries):**
+**PostgreSQL Analysis (8 queries, running on Neon cloud):**
 - Top polluted cities
 - Average AQI by category
 - Cities above danger threshold (AQI > 200)
@@ -55,7 +55,6 @@ Open-Meteo API → Python ETL → MongoDB Atlas (raw) → CSV → Streamlit + Da
 - High risk city CTE analysis
 - City-tier comparison — Metro vs Tier-2 vs Tier-3
 - Time-of-day AQI pattern analysis
-
 **Data quality:** 4 automated checks on every pipeline run
 
 **Tests:** 9 pytest tests covering label boundaries and city data validation
@@ -69,8 +68,7 @@ Open-Meteo API → Python ETL → MongoDB Atlas (raw) → CSV → Streamlit + Da
 
 ## Tech stack
 
-Python · Pandas · MongoDB Atlas · PyMongo · Streamlit · Dash · Plotly · Folium · Docker · GitHub Actions · Render
-
+Python · Pandas · PostgreSQL (Neon) · MongoDB Atlas · PyMongo · Streamlit · Dash · Plotly · Folium · Docker · GitHub Actions · Render
 ---
 
 ## Run locally
