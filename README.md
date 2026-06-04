@@ -39,7 +39,7 @@ The system automatically collects, processes, and analyzes air quality data, mak
 Open-Meteo API → Python ETL → MongoDB Atlas (raw) → CSV → Streamlit + Dash
 
 **Pipeline components:**
-- fetch_aqi.py — pulls live AQI for 101 cities with retry logic (3 attempts per city)
+- fetch_aqi.py — pulls live AQI for 101 cities with rate limit handling: 3 retry attempts per city, 2-second exponential backoff between retries, 10-second request timeout, and automatic failed-city tracking with full logging
 - clean_aqi.py — validates data and assigns air quality labels
 - mongo_store.py — stores raw readings in MongoDB Atlas
 - scheduler.py — automates the full pipeline every 6 hours
