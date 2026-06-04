@@ -111,6 +111,7 @@ CITIES = [
     {"name": "Nizamabad", "lat": 18.6725, "lon": 78.0941},
     {"name": "Karimnagar", "lat": 18.4386, "lon": 79.1288},
 ]
+
 def get_air_quality_label(aqi):
     if aqi <= 50:
         return "Good"
@@ -142,6 +143,8 @@ def fetch_all_cities():
 
                 results.append({
                     "city": city["name"],
+                    "lat": city["lat"],
+                    "lon": city["lon"],
                     "aqi_index": current["european_aqi"],
                     "pm2_5": current["pm2_5"],
                     "pm10": current["pm10"],
