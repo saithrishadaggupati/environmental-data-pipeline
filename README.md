@@ -55,7 +55,9 @@ Open-Meteo API → Python ETL → MongoDB Atlas (raw) → CSV → Streamlit + Da
 - High risk city CTE analysis
 - City-tier comparison — Metro vs Tier-2 vs Tier-3
 - Time-of-day AQI pattern analysis
-**Data quality:** 4 automated checks on every pipeline run
+**Data quality:** 4 automated checks on every pipeline run — null check, range check, duplicate check, freshness check
+
+**Schema validation:** Pydantic models enforce field types and constraints on every AQI record before storage — city name, AQI range (0–500), and timestamp are all validated with structured error reporting
 
 **Tests:** 9 pytest tests covering label boundaries and city data validation
 
