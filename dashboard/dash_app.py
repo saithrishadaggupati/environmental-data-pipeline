@@ -2,7 +2,6 @@ import dash
 from dash import dcc, html, dash_table
 import plotly.express as px
 import pandas as pd
-from sqlalchemy import create_engine
 import os
 from dotenv import load_dotenv
 from src.logger import logger
@@ -11,14 +10,7 @@ load_dotenv()
 
 logger.info("Loading data for Dash dashboard")
 
-engine = create_engine(
-    f"postgresql+psycopg2://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}"
-    f"@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}",
-    connect_args={"sslmode": "require"}
-)
-
-df = pd.read_sql("SELECT * FROM aqi_readings", engine)
-
+df = pd.read_csv("data/raw/aqi_data.csv")
 latest = df.sort_values("timestamp").groupby("city").last().reset_index()
 latest_sorted = latest.sort_values("aqi_index", ascending=False)
 
@@ -38,7 +30,7 @@ fig_bar = px.bar(
     latest_sorted,
     x="city", y="aqi_index",
     color="air_quality_label",
-    title="AQI Levels Across 25 Indian Cities",
+    title=f"AQI Levels Across {cities_tracked} Indian Cities",
     labels={"aqi_index": "AQI Index", "city": "City"},
     color_discrete_map=color_map
 )
@@ -80,7 +72,7 @@ app.layout = html.Div(
     children=[
         html.H1("🌍 India Air Quality Dashboard",
                 style={'textAlign': 'center', 'color': '#2c3e50'}),
-        html.P("Live data from 25 Indian cities — updated every 6 hours",
+        html.P(f"Live data from {cities_tracked} Indian cities — updated every 6 hours",
                style={'textAlign': 'center', 'color': '#7f8c8d'}),
         html.Div(
             style={'display': 'flex', 'justifyContent': 'space-around', 'marginBottom': '30px'},
