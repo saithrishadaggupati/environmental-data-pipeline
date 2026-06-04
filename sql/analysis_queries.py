@@ -1,141 +1,102 @@
-import psycopg2
 import pandas as pd
 import os
-from dotenv import load_dotenv
 from src.logger import logger
-
-load_dotenv()
-
-
-def get_connection():
-    return psycopg2.connect(
-        host=os.getenv("DB_HOST"),
-        port=os.getenv("DB_PORT"),
-        dbname=os.getenv("DB_NAME"),
-        user=os.getenv("DB_USER"),
-        password=os.getenv("DB_PASSWORD")
-    )
 
 
 def run_analysis():
     logger.info("Starting SQL analysis on AQI dataset")
-    conn = get_connection()
+
+    df = pd.read_csv("data/raw/aqi_data.csv")
+    df["timestamp"] = pd.to_datetime(df["timestamp"])
 
     # Query 1 — Top 5 most polluted cities
     logger.info("Running Query 1 — Most polluted cities")
-    df1 = pd.read_sql("""
-        SELECT city, aqi_index, air_quality_label
-        FROM aqi_readings
-        ORDER BY aqi_index DESC
-        LIMIT 5
-    """, conn)
+    df1 = df.sort_values("aqi_index", ascending=False).head(5)[["city", "aqi_index", "air_quality_label"]]
     print("\n🏙️ Top 5 Most Polluted Cities:")
     print(df1.to_string(index=False))
 
     # Query 2 — Average AQI by pollution category
     logger.info("Running Query 2 — Average AQI by category")
-    df2 = pd.read_sql("""
-        SELECT air_quality_label,
-               COUNT(*) as total_cities,
-               ROUND(AVG(aqi_index)::numeric, 2) as avg_aqi
-        FROM aqi_readings
-        GROUP BY air_quality_label
-        ORDER BY avg_aqi DESC
-    """, conn)
+    df2 = df.groupby("air_quality_label").agg(
+        total_cities=("city", "count"),
+        avg_aqi=("aqi_index", "mean")
+    ).round(2).reset_index().sort_values("avg_aqi", ascending=False)
     print("\n📊 Average AQI by Category:")
     print(df2.to_string(index=False))
 
     # Query 3 — Cities above danger threshold
     logger.info("Running Query 3 — Cities above danger threshold")
-    df3 = pd.read_sql("""
-        SELECT city, aqi_index, air_quality_label
-        FROM aqi_readings
-        WHERE aqi_index > 200
-        ORDER BY aqi_index DESC
-    """, conn)
+    df3 = df[df["aqi_index"] > 200].sort_values("aqi_index", ascending=False)[["city", "aqi_index", "air_quality_label"]]
     print("\n⚠️ Cities Above Danger Threshold (AQI > 200):")
     print(df3.to_string(index=False))
 
-    # Query 4 — Clean vs polluted ratio using window function
+    # Query 4 — Clean vs polluted ratio
     logger.info("Running Query 4 — Clean vs polluted city ratio")
-    df4 = pd.read_sql("""
-        SELECT 
-            CASE 
-                WHEN air_quality_label = 'Good' THEN 'Clean'
-                ELSE 'Polluted'
-            END as status,
-            COUNT(*) as cities,
-            ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER(), 1) as percentage
-        FROM aqi_readings
-        GROUP BY status
-    """, conn)
+    df["status"] = df["air_quality_label"].apply(lambda x: "Clean" if x == "Good" else "Polluted")
+    df4 = df.groupby("status").agg(cities=("city", "count")).reset_index()
+    df4["percentage"] = (df4["cities"] * 100.0 / df4["cities"].sum()).round(1)
     print("\n✅ Clean vs Polluted City Breakdown:")
     print(df4.to_string(index=False))
 
-    # Query 5 — City rankings using window function
+    # Query 5 — City rankings
     logger.info("Running Query 5 — City pollution rankings")
-    df5 = pd.read_sql("""
-        SELECT 
-            city,
-            aqi_index,
-            air_quality_label,
-            RANK() OVER (ORDER BY aqi_index DESC) as pollution_rank,
-            ROUND(AVG(aqi_index) OVER(), 2) as national_avg
-        FROM aqi_readings
-        ORDER BY pollution_rank
-    """, conn)
+    df5 = df.sort_values("aqi_index", ascending=False).copy()
+    df5["pollution_rank"] = df5["aqi_index"].rank(ascending=False, method="min").astype(int)
+    df5["national_avg"] = round(df["aqi_index"].mean(), 2)
     print("\n🏆 City Pollution Rankings vs National Average:")
-    print(df5.to_string(index=False))
+    print(df5[["city", "aqi_index", "air_quality_label", "pollution_rank", "national_avg"]].to_string(index=False))
 
-    # Query 6 — CTE for high risk cities analysis
-    logger.info("Running Query 6 — High risk city analysis using CTE")
-    df6 = pd.read_sql("""
-        WITH city_risk AS (
-            SELECT 
-                city,
-                aqi_index,
-                air_quality_label,
-                CASE 
-                    WHEN aqi_index > 200 THEN 'High Risk'
-                    WHEN aqi_index > 100 THEN 'Moderate Risk'
-                    ELSE 'Low Risk'
-                END as risk_level
-            FROM aqi_readings
-        )
-        SELECT 
-            risk_level,
-            COUNT(*) as total_cities,
-            ROUND(AVG(aqi_index)::numeric, 2) as avg_aqi,
-            MIN(city) as example_city
-        FROM city_risk
-        GROUP BY risk_level
-        ORDER BY avg_aqi DESC
-    """, conn)
-    print("\n🔴 Risk Level Distribution
-          # Query 7 — City Tier Analysis (Metro vs Tier-2 vs Tier-3)
+    # Query 6 — High risk city analysis
+    logger.info("Running Query 6 — High risk city analysis")
+    def risk(aqi):
+        if aqi > 200: return "High Risk"
+        elif aqi > 100: return "Moderate Risk"
+        else: return "Low Risk"
+    df["risk_level"] = df["aqi_index"].apply(risk)
+    df6 = df.groupby("risk_level").agg(
+        total_cities=("city", "count"),
+        avg_aqi=("aqi_index", "mean"),
+        example_city=("city", "first")
+    ).round(2).reset_index().sort_values("avg_aqi", ascending=False)
+    print("\n🔴 Risk Level Distribution:")
+    print(df6.to_string(index=False))
+
+    # Query 7 — City Tier Analysis
     logger.info("Running Query 7 — City tier pollution comparison")
-    df7 = pd.read_sql("""
-        WITH tier_classified AS (
-            SELECT 
-                city,
-                aqi_index,
-                air_quality_label,
-                CASE 
-                    WHEN city IN ('Delhi', 'Mumbai', 'Bangalore', 'Chennai', 'Kolkata', 'Hyderabad') THEN 'Metro'
-                    WHEN city IN ('Pune', 'Ahmedabad', 'Jaipur', 'Lucknow', 'Surat', 'Nagpur') THEN 'Tier-2'
-                    ELSE 'Tier-3'
-                END as city_tier
-            FROM aqi_readings
-        )
-        SELECT 
-            city_tier,
-            COUNT(*) as total_cities,
-            ROUND(AVG(aqi_index)::numeric, 2) as avg_aqi,
-            MAX(aqi_index) as worst_aqi,
-            MIN(aqi_index) as best_aqi
-        FROM tier_classified
-        GROUP BY city_tier
-        ORDER BY avg_aqi DESC
-    """, conn)
+    metro = ['Delhi', 'Mumbai', 'Bangalore', 'Chennai', 'Kolkata', 'Hyderabad']
+    tier2 = ['Pune', 'Ahmedabad', 'Jaipur', 'Lucknow', 'Surat', 'Nagpur']
+    def tier(city):
+        if city in metro: return "Metro"
+        elif city in tier2: return "Tier-2"
+        else: return "Tier-3"
+    df["city_tier"] = df["city"].apply(tier)
+    df7 = df.groupby("city_tier").agg(
+        total_cities=("city", "count"),
+        avg_aqi=("aqi_index", "mean"),
+        worst_aqi=("aqi_index", "max"),
+        best_aqi=("aqi_index", "min")
+    ).round(2).reset_index().sort_values("avg_aqi", ascending=False)
     print("\n🏙️ Pollution by City Tier (Metro vs Tier-2 vs Tier-3):")
     print(df7.to_string(index=False))
+
+    # Query 8 — Time of Day Analysis
+    logger.info("Running Query 8 — Time of day AQI analysis")
+    def time_of_day(hour):
+        if 5 <= hour < 12: return "Morning (5-12)"
+        elif 12 <= hour < 17: return "Afternoon (12-17)"
+        elif 17 <= hour < 21: return "Evening (17-21)"
+        else: return "Night (21-5)"
+    df["hour"] = df["timestamp"].dt.hour
+    df["time_of_day"] = df["hour"].apply(time_of_day)
+    df8 = df.groupby("time_of_day").agg(
+        total_readings=("aqi_index", "count"),
+        avg_aqi=("aqi_index", "mean"),
+        max_aqi=("aqi_index", "max"),
+        min_aqi=("aqi_index", "min")
+    ).round(2).reset_index().sort_values("avg_aqi", ascending=False)
+    print("\n🕐 AQI by Time of Day:")
+    print(df8.to_string(index=False))
+
+
+if __name__ == "__main__":
+    run_analysis()
