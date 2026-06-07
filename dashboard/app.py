@@ -13,7 +13,10 @@ st.caption("Live data from 100+ Indian cities — refreshed every 6 hours via Gi
 
 @st.cache_data(ttl=3600)
 def load_data():
-    csv_path = "data/raw/aqi_data.csv"
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    csv_path = os.path.join(base_dir, "data", "processed", "clean_aqi.csv")
+    if not os.path.exists(csv_path):
+        csv_path = os.path.join(base_dir, "data", "raw", "aqi_data.csv")
     if os.path.exists(csv_path):
         return pd.read_csv(csv_path)
     else:
@@ -116,6 +119,6 @@ else:
 # Table
 st.subheader("📋 Full Data Table")
 st.dataframe(
-    latest_sorted[["city", "aqi_index", "pm2_5", "pm10", "co", "air_quality_label", "timestamp"]],
+    latest_sorted[["city", "aqi_index", "pm2_5", "pm10", "co", "air_quality_label", "city_tier", "timestamp"]] if "city_tier" in latest_sorted.columns else latest_sorted[["city", "aqi_index", "pm2_5", "pm10", "co", "air_quality_label", "timestamp"]],
     use_container_width=True
 )
