@@ -27,6 +27,8 @@ if df.empty:
     st.stop()
 
 latest = df.sort_values("timestamp").groupby("city").last().reset_index()
+last_updated = df["timestamp"].max()
+st.caption(f"🕐 Last updated: {last_updated}")
 
 # KPI Cards
 col1, col2, col3, col4 = st.columns(4)
