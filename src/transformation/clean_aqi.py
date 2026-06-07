@@ -1,13 +1,11 @@
 import pandas as pd
 import os
+from typing import Optional
+from pydantic import BaseModel, field_validator, ValidationError
 from src.logger import logger
 
 
 # City tier classification based on Census 2011 population data
-# Metro: population > 4 million
-# Tier-1: population 1–4 million
-# Tier-2: population 0.5–1 million
-# Tier-3: population < 0.5 million
 CITY_POPULATION = {
     "Delhi": 11034555, "Mumbai": 12442373, "Kolkata": 4496694,
     "Chennai": 4646732, "Bangalore": 8443675, "Hyderabad": 6809970,
@@ -45,6 +43,59 @@ CITY_POPULATION = {
     "Aizawl": 293416, "Kohima": 99039, "Itanagar": 44981,
     "Gangtok": 100286,
 }
+
+
+class AQIRecord(BaseModel):
+    city: str
+    aqi_index: float
+    pm2_5: float
+    pm10: float
+    co: float
+    timestamp: str
+
+    @field_validator("city")
+    @classmethod
+    def city_must_not_be_empty(cls, v):
+        if not v or not v.strip():
+            raise ValueError("City name cannot be empty")
+        return v
+
+    @field_validator("aqi_index")
+    @classmethod
+    def aqi_must_be_in_range(cls, v):
+        if not (0 <= v <= 500):
+            raise ValueError(f"AQI index {v} is out of valid range (0-500)")
+        return v
+
+    @field_validator("pm2_5", "pm10", "co")
+    @classmethod
+    def values_must_be_non_negative(cls, v):
+        if v < 0:
+            raise ValueError(f"Value {v} cannot be negative")
+        return v
+
+
+def validate_records(df: pd.DataFrame):
+    valid_records = []
+    invalid_count = 0
+
+    for _, row in df.iterrows():
+        try:
+            AQIRecord(
+                city=str(row["city"]),
+                aqi_index=float(row["aqi_index"]),
+                pm2_5=float(row["pm2_5"]),
+                pm10=float(row["pm10"]),
+                co=float(row["co"]),
+                timestamp=str(row["timestamp"])
+            )
+            valid_records.append(row)
+        except ValidationError as e:
+            invalid_count += 1
+            logger.warning(f"Validation failed for {row.get('city', 'unknown')}: {e}")
+
+    logger.info(f"Pydantic validation complete — {len(valid_records)} valid, {invalid_count} invalid records")
+    return pd.DataFrame(valid_records)
 
 
 def classify_tier(city):
@@ -85,6 +136,8 @@ def clean_data():
         logger.warning(f"Dropped {dropped} rows with missing values")
     else:
         logger.info("No missing values found — data is clean")
+
+    df = validate_records(df)
 
     df["air_quality_label"] = df["aqi_index"].apply(label_air)
     df["city_tier"] = df["city"].apply(classify_tier)
