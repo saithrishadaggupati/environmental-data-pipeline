@@ -136,7 +136,7 @@ def fetch_all_cities():
                     f"?latitude={city['lat']}&longitude={city['lon']}"
                     f"&current=pm2_5,pm10,carbon_monoxide,european_aqi"
                 )
-                response = requests.get(url, timeout=10)
+                response = requests.get(url, timeout=30)
                 response.raise_for_status()
                 data = response.json()
                 current = data["current"]
@@ -158,7 +158,7 @@ def fetch_all_cities():
             except Exception as e:
                 logger.warning(f"Attempt {attempt+1} failed for {city['name']}: {e}")
                 if attempt < max_retries - 1:
-                    time.sleep(2)
+                    time.sleep(5)
                 else:
                     logger.error(f"All 3 attempts failed for {city['name']}")
                     failed.append(city["name"])
