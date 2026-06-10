@@ -12,8 +12,6 @@ schedule
 gunicorn
 folium
 streamlit-folium
-scipy==1.17.1
-pydantic==2.13.4
-sqlalchemy
-psycopg2-binary
-python-dotenv
+scipy
+pydantic
+pymongo
